@@ -1,53 +1,229 @@
 :root {
-    --farbe1: #00ffff; /* Primärfarbe */
-    --farbe2: #222;    /* Hintergrund */
-    --text:   #fff;    
-  }
-  
-  body {
-    margin: 0;
-    background-color: var(--farbe2);
-    color: var(--text);
-    font-family: sans-serif;
-  }
-  
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--farbe1);
-    padding: 1rem;
-  }
-  
-  nav ul {
-    display: flex;
-    list-style: none;
-    gap: 1rem;
-  }
-  
-  nav a {
-    text-decoration: none;
-    color: var(--text);
-  }
-  
-  main {
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-  }
-  
-  section {
-    flex: 3;
-  }
-  
-  aside {
-    flex: 1;
-    background-color: #333;
-    padding: 1rem;
-  }
-  
-  footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: var(--farbe1);
-  }
+--primary-color: #2b73f8;
+--secondary-color: #00b8f6;
+--tertiary-color: #bdf8fc;
+--quaternary-color: #000000;
+--text-color: #333333;
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: sans-serif;
+}
+
+html, body {
+height: 100%;
+}
+
+body {
+font-family: 'Poppins', sans-serif;
+display: flex;
+flex-direction: column;
+min-height: 100vh; 
+background-color: var(--secondary-color);
+color: var(--text-color);
+line-height: 1.6;
+}
+
+header, footer, section, aside {
+border-radius: 8px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Header bleibt wie gehabt */
+header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background-color: var(--primary-color);
+padding: 1.5rem 2rem;
+margin-bottom: 1rem;
+}
+
+/* Logo */
+.logo {
+display: flex;
+align-items: center;
+gap: 0.75rem;
+}
+.logo h1 {
+font-size: 1.6rem;
+font-weight: 700;
+color: var(--tertiary-color);
+margin: 0;
+}
+.logo img {
+width: 40px; 
+height: auto;
+}
+
+/* Hauptnavigation (alter nav + neue Klassen für Dropdown) */
+nav ul {
+list-style: none;
+display: flex;
+gap: 1rem;
+}
+
+/* Neue Klasse: .main-nav */
+.main-nav {
+list-style: none;
+display: flex;
+gap: 1rem;
+position: relative;
+}
+.main-nav > li {
+position: relative;
+}
+
+/* Links: normal schwarz, Hover hellblau */
+a {
+color: var(--quaternary-color);
+text-decoration: underline;
+transition: color 0.2s ease;
+}
+nav a {
+position: relative;
+}
+nav a::after {
+content: "";
+position: absolute;
+bottom: -2px;
+left: 0;
+height: 2px;
+width: 0%;
+background-color: var(--quaternary-color);
+transition: width 0.3s ease;
+}
+nav a:hover {
+color: var(--tertiary-color);
+}
+nav a:hover::after {
+width: 100%;
+}
+
+/* Neue Dropdown-Regeln */
+.has-dropdown .dropdown {
+display: none; 
+position: absolute;
+top: 2.5rem;
+left: 0;
+background-color: var(--tertiary-color);
+list-style: none;
+border-radius: 4px;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+min-width: 150px;
+z-index: 999;
+}
+.has-dropdown .dropdown li {
+border-bottom: 1px solid #ddd;
+}
+.has-dropdown .dropdown li:last-child {
+border-bottom: none;
+}
+.has-dropdown .dropdown a {
+display: block;
+color: var(--quaternary-color);
+text-decoration: underline;
+padding: 0.5rem 0.75rem;
+}
+.has-dropdown .dropdown a:hover {
+background-color: var(--secondary-color);
+color: var(--tertiary-color);
+}
+/* Dropdown sichtbar bei Hover */
+.has-dropdown:hover .dropdown {
+display: block;
+}
+
+/* Hauptteil + Sidebar */
+main {
+max-width: 1200px;
+margin: 1rem auto;  
+padding: 0 1rem;
+display: flex;
+gap: 1rem;
+flex: 1; 
+}
+section {
+flex: 3;
+background-color: var(--tertiary-color);
+padding: 1.5rem;
+}
+section h2 {
+font-size: 1.8rem;
+margin-bottom: 0.75rem;
+}
+section h3 {
+font-size: 1.4rem;
+margin-top: 1.5rem;
+margin-bottom: 0.75rem;
+}
+section p {
+margin-bottom: 1rem;
+}
+section ul {
+list-style-type: disc;
+margin-left: 1.5rem;
+margin-bottom: 1.5rem;
+}
+
+aside {
+flex: 1;
+background-color: var(--tertiary-color);
+padding: 1.5rem;
+min-width: 200px;
+}
+
+footer {
+background-color: var(--primary-color);
+text-align: center;
+padding: 1.5rem;
+margin-top: auto; 
+}
+footer p {
+font-size: 1rem;
+font-weight: 600;
+margin: 0;
+}
+
+/* Buttons */
+.btn {
+display: inline-block;
+background-color: var(--primary-color);
+color: var(--tertiary-color);
+padding: 0.6rem 1rem;
+border-radius: 4px;
+text-decoration: none;
+font-weight: 500;
+transition: background-color 0.2s ease;
+}
+.btn:hover {
+background-color: var(--secondary-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+main {
+    flex-direction: column;
+}
+aside {
+    margin-top: 1rem; 
+}
+
+/* Neue Regeln fürs Dropdown bei kleinem Bildschirm */
+.main-nav {
+    flex-direction: column;
+    gap: 0;
+}
+.has-dropdown .dropdown {
+    position: static;
+    box-shadow: none;
+    border-radius: 0;
+    display: none; 
+}
+.has-dropdown:hover .dropdown {
+    display: block;
+}
+}
